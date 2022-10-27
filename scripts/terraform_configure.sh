@@ -2,6 +2,7 @@
 
 
 if command -v /usr/bin/terraform &> /dev/null; then
+    echo "install already complete"
     exit
 fi
 

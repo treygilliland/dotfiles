@@ -1,6 +1,7 @@
 #!/bin/bash
 
 if command -v gcloud &> /dev/null; then
+    echo "install already complete"
     exit
 fi
 
