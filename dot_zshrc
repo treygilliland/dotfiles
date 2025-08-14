@@ -1,6 +1,5 @@
 #!/bin/zsh
 # ~/.zshrc - Main ZSH configuration file
-# This file sources modular configuration files for better organization
 
 # Cursor terminal compatibility fix
 # https://forum.cursor.com/t/cursor-agent-mode-when-running-terminal-commands-often-hangs-up-the-terminal-requiring-a-click-to-pop-it-out-in-order-to-continue-commands/59969/16
