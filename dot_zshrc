@@ -15,13 +15,12 @@ fi
 [[ -f ~/.config/zsh/exports.zsh ]] && source ~/.config/zsh/exports.zsh
 
 # Oh My Zsh theme configuration
-# Set Oh My Zsh theme conditionally based on terminal
-# if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-#   ZSH_THEME=""  # Disable Powerlevel10k for Cursor/VSCode
-# else
-#   ZSH_THEME="powerlevel10k/powerlevel10k"
-# fi
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# Set Oh My Zsh theme conditionally based on OS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  ZSH_THEME="powerlevel10k/powerlevel10k"  # Use Powerlevel10k on macOS
+else
+  ZSH_THEME="robbyrussell"  # Use robbyrussell on Linux and other systems
+fi
 
 # Fix Cursor terminal compatibility: https://forum.cursor.com/t/cursor-agent-terminal-doesn-t-work-well-with-powerlevel10k-oh-my-zsh/96808/12
 if [[ -n $CURSOR_TRACE_ID ]]; then
