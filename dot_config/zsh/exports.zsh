@@ -20,8 +20,21 @@ export CC=/opt/homebrew/opt/llvm/bin/clang
 export CXX=/opt/homebrew/opt/llvm/bin/clang++
 
 # Additional PATH exports
+export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+
+# Tool initialization
+# Homebrew (Linuxbrew)
+if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+# Atuin (shell history)
+if command -v atuin &> /dev/null; then
+  eval "$(atuin init zsh)"
+fi
 
 # Directory hashing for quick navigation
 hash -d c=$HOME/binit/code/core
