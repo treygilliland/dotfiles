@@ -1,6 +1,5 @@
 #!/bin/zsh
 # ~/.zshrc - Main ZSH configuration file
-# This file sources modular configuration files for better organization
 
 # Cursor terminal compatibility fix
 # https://forum.cursor.com/t/cursor-agent-mode-when-running-terminal-commands-often-hangs-up-the-terminal-requiring-a-click-to-pop-it-out-in-order-to-continue-commands/59969/16
@@ -17,11 +16,12 @@ fi
 
 # Oh My Zsh theme configuration
 # Set Oh My Zsh theme conditionally based on terminal
-if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-  ZSH_THEME=""  # Disable Powerlevel10k for Cursor/VSCode
-else
-  ZSH_THEME="powerlevel10k/powerlevel10k"
-fi
+# if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+#   ZSH_THEME=""  # Disable Powerlevel10k for Cursor/VSCode
+# else
+#   ZSH_THEME="powerlevel10k/powerlevel10k"
+# fi
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Oh My Zsh plugins
 plugins=(
@@ -33,12 +33,13 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # Prompt configuration for Cursor/VSCode
-if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-  PROMPT='%n@%m:%~%# '
-  RPROMPT=''
-else
-  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-fi
+# if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+#   PROMPT='%n@%m:%~%# '
+#   RPROMPT=''
+# else
+#   [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+# fi
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 # Source modular configuration files
 [[ -f ~/.config/zsh/functions.zsh ]] && source ~/.config/zsh/functions.zsh

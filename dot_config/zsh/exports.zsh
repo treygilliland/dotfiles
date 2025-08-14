@@ -1,6 +1,12 @@
 # Oh My Zsh Configuration
 export ZSH="$HOME/.oh-my-zsh"
 
+# Editor
+export EDITOR="cursor --wait"
+
+# Git
+export GITHUB_USERNAME="treygilliland"
+
 # Core Repository Path
 export CORE_DIR="~/binit/code/core"
 
