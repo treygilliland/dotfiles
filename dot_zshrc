@@ -1,0 +1,362 @@
+### POWERLEVEL10K + OH-MY-ZSH ###
+
+# https://forum.cursor.com/t/cursor-agent-mode-when-running-terminal-commands-often-hangs-up-the-terminal-requiring-a-click-to-pop-it-out-in-order-to-continue-commands/59969/16
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# ZSH_THEME="robbyrussell"
+# Set Oh My Zsh theme conditionally
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  ZSH_THEME=""  # Disable Powerlevel10k for Cursor
+else
+  ZSH_THEME="powerlevel10k/powerlevel10k"
+fi
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+# Uncomment the following line to change how often to auto-update (in days).
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+	git
+	zsh-autosuggestions
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# Use a minimal prompt in Cursor to avoid command detection issues
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  PROMPT='%n@%m:%~%# '
+  RPROMPT=''
+else
+  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+fi
+
+# Syntax highlighting
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# zsh auto completion
+autoload -Uz compinit
+zstyle ':completion:*' menu select
+fpath+=~/.zfunc
+
+### THEMEING
+
+# VSCode -- https://glitchbone.github.io/vscode-base16-term/#/solarized-dark
+alias coderc='code ~/Library/Application Support/Cursor/User/settings.json'
+
+### ARCHIVE ###
+
+### TOOL SETUPS ###
+
+# Default IDE
+alias code=cursor
+
+# 1Password CLI, created by Trey on 08/01
+eval "$(op completion zsh)"; compdef _op op # Adds shell completion commands for `op`
+
+# atuin
+eval "$(atuin init zsh)"
+
+# uv
+# https://docs.astral.sh/uv/getting-started/features/
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
+
+# google cloud homebrew sdk
+# Google Cloud SDK
+source "/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc"
+source "/opt/homebrew/share/google-cloud-sdk/path.zsh.inc"
+
+# thefuck
+eval $(thefuck --alias)
+
+# mise
+eval "$(mise activate zsh)"
+
+# graphite
+# gt completion >> ~/.zshrc
+#compdef gt
+###-begin-gt-completions-###
+#
+# yargs command completion script
+#
+# Installation: gt completion >> ~/.zshrc
+#    or gt completion >> ~/.zprofile on OSX.
+#
+_gt_yargs_completions()
+{
+  local reply
+  local si=$IFS
+  IFS=$'
+' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" gt --get-yargs-completions "${words[@]}"))
+  IFS=$si
+  _describe 'values' reply
+}
+compdef _gt_yargs_completions gt
+###-end-gt-completions-###
+
+### FUNCTIONS ###
+
+removecontainers() {
+    docker stop $(docker ps -aq)
+    docker rm $(docker ps -aq)
+}
+
+armageddon() {
+    removecontainers
+    docker network prune -f
+    docker rmi -f $(docker images --filter dangling=true -qa)
+    docker volume rm $(docker volume ls --filter dangling=true -q)
+    docker rmi -f $(docker images -qa)
+    docker system prune --all --volumes --force && docker volume prune --all --force
+}
+
+### ALIASES ###
+
+# directory aliases, use like ~c 
+hash -d c=$HOME/binit/code/core
+hash -d code=$HOME/code
+
+
+setopt auto_cd
+cdpath=(
+  $HOME/binit/code/
+  $HOME/binit/code/core/controlunit
+  $HOME
+)
+
+# docker
+alias d="docker"
+alias dcu='docker compose up'
+alias ddf='docker compose '
+alias lzd='lazydocker'
+alias ddf='docker system df'
+
+# python
+alias activate='source .venv/bin/activate'
+
+# node
+alias npm="npm"
+alias n="npm"
+alias p="pnpm"
+alias nrd="npm run dev"
+alias nrt="npm run test"
+alias nrs="npm run start"
+alias nrb="npm run build"
+alias nr="npm run "
+
+# shell
+alias bashrc="code ~/.bashrc"
+alias srcbash="source ~/.bashrc"
+alias zshrc="code ~/.zshrc"
+alias srczsh="source ~/.zshrc"
+alias src="srczsh"
+alias rc="zshrc"
+
+# config files
+alias srctmux="tmux source-file ~/.config/tmux/.tmux.conf"
+alias tmux-config="code ~/.config/tmux/.tmux.conf"
+alias p10k-config="code ~/.p10k.zsh"
+alias zellij-config="code ~/.config/zellij/config.kdl"
+
+# brew
+alias bu="brew update && brew upgrade && brew cleanup"
+alias bi="brew install "
+alias bui="brew uninstall "
+
+# git
+# NOTE: `git config --get-regexp ^alias` to see existing git aliases
+# ZSH git plugin has a lot of aliases, use `alias | grep git` to see them
+alias galias="alias | grep git"
+alias lg="lazygit"
+alias cb="git branch --show-current"
+alias gplo="git pull origin "
+alias gplocb='git pull origin $(git branch --show-current)'
+alias gpso="git push origin "
+alias gpsocb='git push origin $(git branch --show-current)'
+alias gau="git add -u"
+alias gcm="git commit -m "
+alias gs="git status"
+alias gco="git checkout "
+alias gcom="git checkout main"
+alias groot='cd $(git rev-parse --show-toplevel)'
+alias gwt="git worktree"
+alias gtc="gt create -m"
+alias gtm="gt modify"
+alias gtmc="gt modify --commit"
+alias pwb="git branch --show-current"
+
+# graphite
+alias gtcm="gt create -m"
+alias gtm="gt modify"
+alias gtmc="gt modify --commit"
+# gs is git status
+alias gtsync="gt sync"
+alias gts="gt submit"
+alias gtr="gt restack"
+alias gtp="gt sync"
+
+# core repo aliases
+export CORE_DIR="~/binit/code/core"
+alias coredev="zellij --layout  ~/.config/zellij/layouts/core.kdl"
+alias core="cd $CORE_DIR"
+alias sd="cd $CORE_DIR/controlunit/stopdetection"
+alias fdr="cd $CORE_DIR/controlunit/framedriver"
+alias triton="cd $CORE_DIR/controlunit/triton"
+alias fu="cd $CORE_DIR/controlunit/fileuploader"
+alias ch="cd $CORE_DIR/dbt/clickhouse"
+alias pipe="cd $CORE_DIR/lib/python/pipelines"
+alias cli='uv run $(git rev-parse --show-toplevel)/cli/main.py'
+alias dcli='PLATFORM=linux/amd64 $(git rev-parse --show-toplevel)/dcli.sh'
+
+# vlc
+alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc'
+
+# Android App Development
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# Chrome profiles
+alias chrome-school='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="Default"'
+alias chrome-personal='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="Profile 1"'
+alias chrome-work='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="Profile 2"'
+
+# Google Cloud SDK
+alias gcloud-auth-logout="gcloud auth revoke --all && gcloud auth application-default revoke"
+
+# cli tools
+
+alias ports='lsof -nP -iTCP -sTCP:LISTEN'
+# yazi -- allow changing cwd
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+# C
+export CC=/opt/homebrew/opt/llvm/bin/clang
+export CXX=/opt/homebrew/opt/llvm/bin/clang++
+alias cmake="cmake -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX"
+
+### DOCS
+
+# Useful CLI tools https://dev.to/lissy93/cli-tools-you-cant-live-without-57f6
+# bat, tree, tldr (better man)
+# glances (system monitor)
+# ncdu (disk usage)
+
+#### UNMAINTAINED ####
+## Anything below this has been automatically added
+eval "$(zoxide init --cmd cd zsh)"
+export PATH="$HOME/.local/bin:$PATH"
+
+# starship and spaceship
+# eval "$(starship init zsh)"
+
+# echo "source $(brew --prefix)/opt/spaceship/spaceship.zsh" >>! ~/.zshrc
+# source /opt/homebrew/opt/spaceship/spaceship.zsh
+
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
