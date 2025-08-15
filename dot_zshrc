@@ -70,11 +70,6 @@ if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-# Atuin (shell history)
-if command -v atuin &> /dev/null; then
-  eval "$(atuin init zsh)"
-fi
-
 # Directory hashing for quick navigation
 hash -d c=$HOME/binit/code/core
 hash -d code=$HOME/code
