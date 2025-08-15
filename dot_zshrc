@@ -251,6 +251,11 @@ alias dot="chezmoi"
 # TOOL COMPLETIONS AND INITIALIZATIONS
 # ============================================================================
 
+# Atuin (shell history)
+if command -v atuin &> /dev/null; then
+  eval "$(atuin init zsh)"
+fi
+
 # 1Password CLI
 if command -v op &> /dev/null; then
   eval "$(op completion zsh)"; compdef _op op
